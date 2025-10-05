@@ -45,9 +45,20 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-white">Dashboard</h2>
-          <p className="mt-2 text-white/70">Manage your WhatsApp bot sessions</p>
+        <div className="mb-8 flex items-center justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+            <p className="mt-2 text-white/70">Manage your WhatsApp bot sessions</p>
+          </div>
+          <Link href="/pair">
+            <Button
+              size="lg"
+              data-testid="button-new-pair"
+            >
+              <Plus className="mr-2 h-5 w-5" />
+              New Pair
+            </Button>
+          </Link>
         </div>
 
         <div className="mb-8">
@@ -72,17 +83,6 @@ export default function Dashboard() {
             />
           ))}
         </div>
-
-        <Link href="/pair">
-          <Button
-            size="lg"
-            className="fixed bottom-8 right-8 h-14 rounded-full px-6 shadow-2xl"
-            data-testid="button-new-pair"
-          >
-            <Plus className="mr-2 h-5 w-5" />
-            New Pair
-          </Button>
-        </Link>
       </div>
     </div>
   );
