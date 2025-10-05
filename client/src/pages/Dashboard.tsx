@@ -18,37 +18,11 @@ interface SessionsResponse {
 }
 
 export default function Dashboard() {
-  //todo: remove mock functionality - replace with real API
   const { data, isLoading } = useQuery<SessionsResponse>({
     queryKey: ['/api/sessions'],
-    enabled: false,
   });
 
-  //todo: remove mock data
-  const mockData: SessionsResponse = {
-    total: 3,
-    sessions: {
-      "917003816486": {
-        connected: true,
-        user: "917003816486:92@s.whatsapp.net",
-        jid: "917003816486:92@s.whatsapp.net"
-      },
-      "919876543210": {
-        connected: true,
-        user: "919876543210:45@s.whatsapp.net",
-        jid: "919876543210:45@s.whatsapp.net"
-      },
-      "918765432109": {
-        connected: false,
-        user: "918765432109:23@s.whatsapp.net",
-        jid: "918765432109:23@s.whatsapp.net"
-      }
-    },
-    server_uptime: 238.468867106
-  };
-
-  const displayData = data || mockData;
-  const sessionEntries = Object.entries(displayData.sessions);
+  const sessionEntries = data ? Object.entries(data.sessions) : [];
 
   if (isLoading) {
     return (
@@ -69,7 +43,7 @@ export default function Dashboard() {
         <div className="mb-8">
           <StatsCard
             title="Total Active Users"
-            value={displayData.total}
+            value={data?.total || 0}
             icon={<Users className="h-6 w-6 text-primary" />}
           />
         </div>
