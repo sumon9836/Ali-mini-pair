@@ -18,16 +18,26 @@ interface SessionsResponse {
 }
 
 export default function Dashboard() {
-  const { data, isLoading } = useQuery<SessionsResponse>({
+  const { data, isLoading, error } = useQuery<SessionsResponse>({
     queryKey: ['/api/sessions'],
   });
 
-  const sessionEntries = data ? Object.entries(data.sessions) : [];
+  const sessionEntries = data?.sessions ? Object.entries(data.sessions) : [];
 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-4">
+        <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-8 text-center backdrop-blur-lg max-w-md">
+          <p className="text-white">Failed to load sessions. Please try again later.</p>
+        </div>
       </div>
     );
   }

@@ -21,6 +21,12 @@ export default function PairPage() {
   const pairMutation = useMutation<PairResponse, Error, string>({
     mutationFn: async (number: string) => {
       const response = await fetch(`/api/pair?code=${number}`);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to pair number');
+      }
+      
       const data = await response.json();
       return data;
     },
@@ -32,6 +38,10 @@ export default function PairPage() {
         setPairingCode(data.code);
         setError(null);
       }
+    },
+    onError: (error: Error) => {
+      setError(error.message || "Failed to pair number");
+      setPairingCode(null);
     },
   });
 
@@ -62,8 +72,23 @@ export default function PairPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20">
               <AlertCircle className="h-8 w-8 text-red-400" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-white" data-testid="text-error-title">You are blocked</h3>
-            <p className="text-white/70" data-testid="text-error-message">Please contact developer</p>
+            <h3 className="mb-2 text-xl font-semibold text-white" data-testid="text-error-title">
+              {error.toLowerCase().includes("blocked") ? "You are blocked" : "Error"}
+            </h3>
+            <p className="text-white/70" data-testid="text-error-message">
+              {error.toLowerCase().includes("blocked") ? "Please contact developer" : error}
+            </p>
+            <Button
+              onClick={() => {
+                setError(null);
+                setPhoneNumber("");
+              }}
+              variant="outline"
+              className="mt-4"
+              data-testid="button-try-again"
+            >
+              Try Again
+            </Button>
           </div>
         ) : pairingCode ? (
           <PairingCodeDisplay code={pairingCode} />
