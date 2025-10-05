@@ -1,0 +1,105 @@
+import { Link } from "wouter";
+import { Users, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import StatsCard from "@/components/StatsCard";
+import SessionCard from "@/components/SessionCard";
+import { useQuery } from "@tanstack/react-query";
+
+interface Session {
+  connected: boolean;
+  user: string;
+  jid: string;
+}
+
+interface SessionsResponse {
+  total: number;
+  sessions: Record<string, Session>;
+  server_uptime: number;
+}
+
+export default function Dashboard() {
+  //todo: remove mock functionality - replace with real API
+  const { data, isLoading } = useQuery<SessionsResponse>({
+    queryKey: ['/api/sessions'],
+    enabled: false,
+  });
+
+  //todo: remove mock data
+  const mockData: SessionsResponse = {
+    total: 3,
+    sessions: {
+      "917003816486": {
+        connected: true,
+        user: "917003816486:92@s.whatsapp.net",
+        jid: "917003816486:92@s.whatsapp.net"
+      },
+      "919876543210": {
+        connected: true,
+        user: "919876543210:45@s.whatsapp.net",
+        jid: "919876543210:45@s.whatsapp.net"
+      },
+      "918765432109": {
+        connected: false,
+        user: "918765432109:23@s.whatsapp.net",
+        jid: "918765432109:23@s.whatsapp.net"
+      }
+    },
+    server_uptime: 238.468867106
+  };
+
+  const displayData = data || mockData;
+  const sessionEntries = Object.entries(displayData.sessions);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+          <p className="mt-2 text-white/70">Manage your WhatsApp bot sessions</p>
+        </div>
+
+        <div className="mb-8">
+          <StatsCard
+            title="Total Active Users"
+            value={displayData.total}
+            icon={<Users className="h-6 w-6 text-primary" />}
+          />
+        </div>
+
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-2xl font-semibold text-white">Active Sessions</h3>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {sessionEntries.map(([phoneNumber, session]) => (
+            <SessionCard
+              key={phoneNumber}
+              phoneNumber={phoneNumber}
+              jid={session.jid}
+              connected={session.connected}
+            />
+          ))}
+        </div>
+
+        <Link href="/pair">
+          <Button
+            size="lg"
+            className="fixed bottom-8 right-8 h-14 rounded-full px-6 shadow-2xl"
+            data-testid="button-new-pair"
+          >
+            <Plus className="mr-2 h-5 w-5" />
+            New Pair
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
