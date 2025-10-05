@@ -18,16 +18,11 @@ export default function PairPage() {
   const [pairingCode, setPairingCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  //todo: remove mock functionality - replace with real API
   const pairMutation = useMutation<PairResponse, Error, string>({
     mutationFn: async (number: string) => {
-      //todo: replace with actual API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      if (number.includes("blocked")) {
-        return { status: "error", message: "This number is blocked" };
-      }
-      return { code: "Z9LB-SXQQ" };
+      const response = await fetch(`/api/pair?code=${number}`);
+      const data = await response.json();
+      return data;
     },
     onSuccess: (data) => {
       if (data.status === "error") {
