@@ -48,7 +48,7 @@ export default function Dashboard() {
         <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
           <div className="w-full sm:w-auto">
             <h2 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"></h2>
-            <p className="mt-2 text-sm sm:text-base text-white/70">Created by 𝘴น𝚖𝔞ꪦ_𝗿ǿⲩ 🍉 𝐀ɭīī 𝐈𝐍𝅦𝐗īī𝐃𝐄</p>
+            
           </div>
         
           <Link href="/pair" className="w-full sm:w-auto">
