@@ -1,3 +1,5 @@
+import { Phone, CheckCircle2 } from "lucide-react";
+
 interface SessionCardProps {
   phoneNumber: string;
   jid: string;
