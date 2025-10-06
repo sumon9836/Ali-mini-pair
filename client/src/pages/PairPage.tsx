@@ -21,20 +21,21 @@ export default function PairPage() {
   const pairMutation = useMutation<PairResponse, Error, string>({
     mutationFn: async (number: string) => {
       const response = await fetch(`/api/pair?code=${number}`);
+      const data = await response.json();
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to pair number');
+      // Check if the response contains an error status
+      if (data.status === "error") {
+        throw new Error(data.message || 'Failed to pair number');
       }
       
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to pair number');
+      }
+      
       return data;
     },
     onSuccess: (data) => {
-      if (data.status === "error") {
-        setError(data.message || "An error occurred");
-        setPairingCode(null);
-      } else if (data.code) {
+      if (data.code) {
         setPairingCode(data.code);
         setError(null);
       }

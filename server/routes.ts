@@ -18,6 +18,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         headers: { 'Content-Type': 'application/json' },
       });
 
+      const data = await response.json();
+
+      // If upstream returns an error status in the JSON body, forward it
+      if (data.status === "error") {
+        return res.status(response.ok ? 200 : response.status).json(data);
+      }
+
       if (!response.ok) {
         return res.status(response.status).json({ 
           status: "error", 
@@ -25,7 +32,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const data = await response.json();
       return res.status(200).json(data);
     } catch (error) {
       console.error("Error pairing:", error);
