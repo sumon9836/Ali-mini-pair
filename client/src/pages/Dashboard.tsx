@@ -47,10 +47,9 @@ export default function Dashboard() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+            <h2 className="text-3xl font-bold text-white"></h2>
             <p className="mt-2 text-white/70">Created by 𝘴น𝚖𝔞ꪦ_𝗿ǿⲩ 🍉 𝐀ɭīī 𝐈𝐍𝅦𝐗īī𝐃𝐄</p>
           </div>
-           </div>
         
           <Link href="/pair">
             <Button
