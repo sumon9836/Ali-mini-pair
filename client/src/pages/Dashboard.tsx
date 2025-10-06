@@ -93,8 +93,9 @@ export default function Dashboard() {
 
         {/* Footer */}
         <footer className="mt-16 pb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <div className="glass-effect rounded-2xl p-6 text-center border border-white/10">
-            <div className="flex flex-col items-center gap-2">
+          <div className="relative rounded-2xl p-6 text-center border border-white/10 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-blue-600/20 backdrop-blur-xl"></div>
+            <div className="relative z-10 flex flex-col items-center gap-2">
               <p className="text-sm text-white/60">Developed with passion by</p>
               <h3 className="text-lg font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
                 𝘴น𝚖𝔞ꪦ_𝗿ǿⲩ 🍉
