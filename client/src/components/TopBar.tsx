@@ -9,7 +9,7 @@ export default function TopBar() {
             <Smartphone className="h-6 w-6 text-primary" />
           </div>
           <h1 className="text-xl font-bold text-white">
-            ALI-MD mini <span className="text-primary">❤️‍🩹</span>
+          𝐀ɭīī 𝐌𝐃 𝐁❍𝐓 <span className="text-primary">❤️‍🩹</span>
           </h1>
         </div>
       </div>
