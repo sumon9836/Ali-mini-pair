@@ -1,3 +1,4 @@
+
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -5,12 +6,6 @@ const nextConfig: NextConfig = {
   env: {
     WHATSAPP_API_URL: process.env.WHATSAPP_API_URL || "http://yamanote.proxy.rlwy.net:17090",
   },
-};
-
-export default nextConfig;
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
