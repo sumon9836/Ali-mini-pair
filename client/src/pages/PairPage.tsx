@@ -22,16 +22,16 @@ export default function PairPage() {
     mutationFn: async (number: string) => {
       const response = await fetch(`/api/pair?code=${number}`);
       const data = await response.json();
-      
+
       // Check if the response contains an error status
       if (data.status === "error") {
         throw new Error(data.message || 'Failed to pair number');
       }
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to pair number');
       }
-      
+
       return data;
     },
     onSuccess: (data) => {
@@ -49,19 +49,19 @@ export default function PairPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!phoneNumber) return;
-    
+
     setError(null);
     setPairingCode(null);
     pairMutation.mutate(phoneNumber);
   };
 
   return (
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-900 via-purple-700 to-blue-800">
       <div className="mx-auto max-w-md">
         <Button
           variant="ghost"
           onClick={() => setLocation("/")}
-          className="mb-6 text-white"
+          className="mb-6 text-white hover:bg-white/10 smooth-transition"
           data-testid="button-back"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -69,7 +69,7 @@ export default function PairPage() {
         </Button>
 
         {error ? (
-          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-8 text-center backdrop-blur-lg">
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-8 text-center backdrop-blur-lg shadow-lg shadow-red-500/20 animate-fade-in-up">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20">
               <AlertCircle className="h-8 w-8 text-red-400" />
             </div>
@@ -85,7 +85,7 @@ export default function PairPage() {
                 setPhoneNumber("");
               }}
               variant="outline"
-              className="mt-4"
+              className="mt-4 border-red-500/50 text-red-400 hover:bg-red-500/10 smooth-transition"
               data-testid="button-try-again"
             >
               Try Again
@@ -94,13 +94,13 @@ export default function PairPage() {
         ) : pairingCode ? (
           <PairingCodeDisplay code={pairingCode} />
         ) : (
-          <div className="rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-lg">
+          <div className="glass-effect rounded-2xl p-6 sm:p-8 smooth-transition shadow-2xl shadow-purple-500/20 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="mb-6 text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20">
                 <Phone className="h-8 w-8 text-primary" />
               </div>
-              <h2 className="text-3xl font-bold text-white">Pair New Number</h2>
-              <p className="mt-2 text-white/70">Enter phone number to generate pairing code</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Pair New Number</h2>
+              <p className="mt-2 text-sm sm:text-base text-white/70">Enter phone number to generate pairing code</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -114,14 +114,14 @@ export default function PairPage() {
                   placeholder="919876543210"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:border-primary focus:ring-primary"
+                  className="border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400/50 smooth-transition text-base sm:text-sm"
                   data-testid="input-phone"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50 smooth-transition hover:scale-105"
                 size="lg"
                 disabled={pairMutation.isPending}
                 data-testid="button-submit"

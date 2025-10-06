@@ -45,15 +45,16 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <div>
-            <h2 className="text-3xl font-bold text-white"></h2>
-            <p className="mt-2 text-white/70">Created by 𝘴น𝚖𝔞ꪦ_𝗿ǿⲩ 🍉 𝐀ɭīī 𝐈𝐍𝅦𝐗īī𝐃𝐄</p>
+        <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
+          <div className="w-full sm:w-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"></h2>
+            <p className="mt-2 text-sm sm:text-base text-white/70">Created by 𝘴น𝚖𝔞ꪦ_𝗿ǿⲩ 🍉 𝐀ɭīī 𝐈𝐍𝅦𝐗īī𝐃𝐄</p>
           </div>
         
-          <Link href="/pair">
+          <Link href="/pair" className="w-full sm:w-auto">
             <Button
               size="lg"
+              className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50 smooth-transition hover:scale-105"
               data-testid="button-new-pair"
             >
               <Plus className="mr-2 h-5 w-5" />
@@ -62,26 +63,31 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 animate-scale-in" style={{ animationDelay: '0.2s' }}>
           <StatsCard
             title="Total Active Users"
             value={data?.total || 0}
-            icon={<Users className="h-6 w-6 text-primary" />}
+            icon={<Users className="h-6 w-6 text-purple-400" />}
           />
         </div>
 
-        <div className="mb-6 flex items-center justify-between">
-          <h3 className="text-2xl font-semibold text-white">Active Sessions</h3>
+        <div className="mb-6 flex items-center justify-between animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <h3 className="text-xl sm:text-2xl font-semibold text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Active Sessions</h3>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {sessionEntries.map(([phoneNumber, session]) => (
-            <SessionCard
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {sessionEntries.map(([phoneNumber, session], index) => (
+            <div
               key={phoneNumber}
-              phoneNumber={phoneNumber}
-              jid={session.jid}
-              connected={session.connected}
-            />
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${0.4 + index * 0.1}s` }}
+            >
+              <SessionCard
+                phoneNumber={phoneNumber}
+                jid={session.jid}
+                connected={session.connected}
+              />
+            </div>
           ))}
         </div>
       </div>

@@ -22,7 +22,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-gradient-to-br from-chart-1 to-chart-2">
+        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-purple-800 animate-gradient relative overflow-hidden">
+          {/* Animated background blobs */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+          
           <TopBar />
           <Router />
         </div>
